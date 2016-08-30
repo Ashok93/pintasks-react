@@ -6,16 +6,20 @@ class TaskApp extends React.Component {
 
   constructor() {
     super();
+    //card info is an array, containing todo tasks. first check the localStorage for any cards if not it will be empty array.
     var card_info = [];
     if (typeof(Storage) !== "undefined") {
           // Store
           var card_info = JSON.parse(localStorage.getItem('card_info'));
       }
+
+    //setting the state in constructor.
     this.state = {
       tasks: card_info
     }
   }
 
+  //random number generator for task id.
   generateId() {
     return Math.floor(Math.random()*90000) + 10000;
   }
@@ -55,7 +59,8 @@ class TaskApp extends React.Component {
 
     }
 
-  render () {
+  render() {
+    //styles for Header and Addcard.
     let HeadingStyle = {
       textAlign: 'center',
       color: 'white'
@@ -77,13 +82,13 @@ class TaskApp extends React.Component {
               </div>
             {
               this.state.tasks.map(function(task){
-              return <Card key={task.id} task = {task} delete={parent_component.deleteCard.bind(parent_component)}/>
+              return <Card task = {task} delete={parent_component.deleteCard.bind(parent_component)}/>
               })
             }
           </div>
       </div>
     );
-
   }
 }
+
 render(<TaskApp/>, document.getElementById('app'));
