@@ -75,6 +75,7 @@
 	  function TaskApp() {
 	    _classCallCheck(this, TaskApp);
 	
+	    //card info is an array, containing todo tasks. first check the localStorage for any cards if not it will be empty array.
 	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(TaskApp).call(this));
 	
 	    var card_info = [];
@@ -82,11 +83,16 @@
 	      // Store
 	      var card_info = JSON.parse(localStorage.getItem('card_info'));
 	    }
+	
+	    //setting the state in constructor.
 	    _this.state = {
 	      tasks: card_info
 	    };
 	    return _this;
 	  }
+	
+	  //random number generator for task id.
+	
 	
 	  _createClass(TaskApp, [{
 	    key: 'generateId',
@@ -96,6 +102,8 @@
 	  }, {
 	    key: 'addCard',
 	    value: function addCard(event) {
+	      var _this2 = this;
+	
 	      var date_time = new Date();
 	      var task_to_add = this.refs.txt_area.value;
 	      var task_id = this.generateId();
@@ -105,7 +113,7 @@
 	      this.setState({
 	        tasks: current_state
 	      }, function () {
-	        this.setLocalStorage(current_state);
+	        _this2.setLocalStorage(current_state);
 	      });
 	    }
 	  }, {
@@ -119,6 +127,8 @@
 	  }, {
 	    key: 'deleteCard',
 	    value: function deleteCard(id) {
+	      var _this3 = this;
+	
 	      var current_tasks = this.state.tasks;
 	      current_tasks = current_tasks.filter(function (el) {
 	        return el.id !== id;
@@ -127,12 +137,13 @@
 	      this.setState({
 	        tasks: current_tasks
 	      }, function () {
-	        this.setLocalStorage(current_tasks);
+	        _this3.setLocalStorage(current_tasks);
 	      });
 	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
+	      //styles for Header and Addcard.
 	      var HeadingStyle = {
 	        textAlign: 'center',
 	        color: 'white'
@@ -162,7 +173,7 @@
 	            _react2.default.createElement('button', { className: 'add-card-btn typcn typcn-plus', onClick: this.addCard.bind(this) })
 	          ),
 	          this.state.tasks.map(function (task) {
-	            return _react2.default.createElement(_Card2.default, { key: task.id, task: task, 'delete': parent_component.deleteCard.bind(parent_component) });
+	            return _react2.default.createElement(_Card2.default, { task: task, 'delete': parent_component.deleteCard.bind(parent_component) });
 	          })
 	        )
 	      );
@@ -22070,15 +22081,11 @@
 	var Card = function (_React$Component) {
 	  _inherits(Card, _React$Component);
 	
+	  //receiving props. No State Component. Uses the props.
 	  function Card(props) {
 	    _classCallCheck(this, Card);
 	
-	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Card).call(this, props));
-	
-	    _this.state = {
-	      task: _this.props.task
-	    };
-	    return _this;
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(Card).call(this, props));
 	  }
 	
 	  _createClass(Card, [{
@@ -22102,12 +22109,12 @@
 	        _react2.default.createElement(
 	          'div',
 	          null,
-	          this.state.task.task
+	          this.props.task.task
 	        ),
 	        _react2.default.createElement(
 	          'span',
 	          { className: 'date-time' },
-	          this.state.task.dateTime
+	          this.props.task.dateTime
 	        )
 	      );
 	    }

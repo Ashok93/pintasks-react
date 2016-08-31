@@ -33,7 +33,7 @@ class TaskApp extends React.Component {
       current_state.push(task);
       this.setState({
         tasks: current_state
-      }, function (){
+      },() =>{
           this.setLocalStorage(current_state);
       });
     }
@@ -47,13 +47,13 @@ class TaskApp extends React.Component {
 
     deleteCard(id) {
       let current_tasks = this.state.tasks;
-      current_tasks = current_tasks.filter(function (el) {
+      current_tasks = current_tasks.filter( (el) => {
       return el.id !== id;
       });
 
       this.setState({
       tasks: current_tasks
-      }, function() {
+      }, () => {
         this.setLocalStorage(current_tasks)
       });
 
@@ -81,7 +81,7 @@ class TaskApp extends React.Component {
               <button className='add-card-btn typcn typcn-plus' onClick={this.addCard.bind(this)}></button>
               </div>
             {
-              this.state.tasks.map(function(task){
+              this.state.tasks.map((task) => {
               return <Card task = {task} delete={parent_component.deleteCard.bind(parent_component)}/>
               })
             }
@@ -89,6 +89,7 @@ class TaskApp extends React.Component {
       </div>
     );
   }
+  
 }
 
 render(<TaskApp/>, document.getElementById('app'));

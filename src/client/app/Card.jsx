@@ -8,11 +8,11 @@ class Card extends React.Component {
     super(props);
   }
 
-    deleteClicked(e) {
-      this.props.delete(this.props.task.id);
-    }
+  deleteClicked(e) {
+    this.props.delete(this.props.task.id);
+  }
 
-  render (){
+  render(){
 
     let AddCardStyle = {
     width: '200px',
